@@ -23,6 +23,14 @@ main > div > .canvas {
  .hidden{
      display: none;
  }
+
+ .slider{
+    display: none;
+ }
+
+ .cardo{
+    
+ }
  
  
  /*
