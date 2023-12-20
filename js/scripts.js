@@ -46,47 +46,165 @@ const images = [
     },
 ];
 
+// come accedere alle proprietà di un oggetto 
+// console.log(images[2]);             // cosi stampo il terzo elemento dell'array in console
+// console.log (images[3]['title']);    // modo di accedere alla proprietà di un oggetto in un array  ci da lo stesso risultato di quello successivo
+// console.log (images[3].title);      // modo di accedere alla proprietà di un oggetto in un array DOT NOTATION
+// La differenza concettuale è che fra le parentesi quadre si possono mettere anche delle variabili.
+// avessimo avuto una variabile, const ciccio = 'description', si sarebbe collegata all'array ed avrebbe dato
+// il valore della chaive alla posizione dell'indice 3, ovvero lorem ipsum etc...
 
-// document.querySelector('.canvas').innerHTML = (images[0].title);
 
-for ( let i = 0; i < images.length; i++){
-    // faccio un ciclo for in per ciclare le chiavi iesime di ogni oggetto
-    // for (let key in images[i]){
+// creo una costante per collegare images all'interno dell?HTML con JS
+const imagesContainer = document.querySelector('.my-carousel .images');
 
 
-    //     console.log(images[i][key])
-    // };
+for (let i = 0 ; i < images.length; i++){
 
-    document.querySelector('.canvas').innerHTML +=`
+    let itemClasses = 'slide';
+    // console.log(images[i]);
 
-        <div class="slider aiuto">
-            <img src="${images[i]['url']} "alt="">
-            <h1>
-                ${images[i]['title']}
-            </h1>
+    if (i == 0) {
+
+        itemClasses += ' active';
+    }
+
+    imagesContainer.innerHTML += `
+    <div class= "${itemClasses}">
+        <img src="${images[i].url}" alt="">
+        <div class="texts">
+            <h3>
+            ${images[i].title}
+            </h3>
             <p>
-                ${images[i]['description']}
+            ${images[i].description}
             </p>
         </div>
+    </div>
     `;
-    //  se l'elemento i è uguale a zero allora sesegui le istruzione fra
-    //  le graffe fa riferimento alla prima foto
-    if (i == 0){
+};
 
-        document.querySelector('.aiuto').classList.add('active')
-        document.querySelector('.aiuto').classList.remove('slider')
+const allSlides = document.querySelectorAll('.slide');
+console.log ('allSlides', allSlides, allSlides.length, typeof allSlides);
+
+
+
+
+let indiceDellaSlideConClasseActive = 0;
+
+// selezione il button in HTML
+const nextButton = document.getElementById('next');
+
+// intercetto il click sul button 
+
+nextButton.addEventListener('click', function (){
+    console.log('Rimuovere la classe active dalla slide correntemente attiva');
+    allSlides[indiceDellaSlideConClasseActive].classList.remove('active');
+
+    if (indiceDellaSlideConClasseActive < (allSlides.length -1)){
+        indiceDellaSlideConClasseActive++;
+    }
+    else{
+        indiceDellaSlideConClasseActive = 0;
+    }
+    console.log ('Aggiungere la classe active alla slide successiva');
+    allSlides[indiceDellaSlideConClasseActive].classList.add('active');
+});
+
+// selezione il button in HTML
+const prevButton = document.getElementById('prev');
+
+// intercetto il click sul button 
+
+prevButton.addEventListener('click', function (){
+    allSlides[indiceDellaSlideConClasseActive].classList.remove('active');
+
+    if (indiceDellaSlideConClasseActive > 0){
+        indiceDellaSlideConClasseActive--;
+    }
+    else{
+        indiceDellaSlideConClasseActive = allSlides.length - 1;
+    }
+    allSlides[indiceDellaSlideConClasseActive].classList.add('active');
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// document.querySelector('.canvas').innerHTML = (images[0].title);
+// da decommetnare e far vedere a mauro
+// for ( let i = 0; i < images.length; i++){
+//     // faccio un ciclo for in per ciclare le chiavi iesime di ogni oggetto
+//     // for (let key in images[i]){
+
+
+//     //     console.log(images[i][key])
+//     // };
+
+//     document.querySelector('.canvas').innerHTML +=`
+
+//         <div class="slider aiuto">
+//             <img src="${images[i]['url']} "alt="">
+//             <h1>
+//                 ${images[i]['title']}
+//             </h1>
+//             <p>
+//                 ${images[i]['description']}
+//             </p>
+//         </div>
+//     `;
+//     //  se l'elemento i è uguale a zero allora sesegui le istruzione fra
+//     //  le graffe fa riferimento alla prima foto
+//     if (i == 0){
+
+//         document.querySelector('.aiuto').classList.add('active')
+//         document.querySelector('.aiuto').classList.remove('slider')
 
 
         
-        // images[0]classList.add('active');
+//         // images[0]classList.add('active');
     
-    }
+//     }
     
-    // document.querySelector('.slider').classList.add('hidden')
+//     // document.querySelector('.slider').classList.add('hidden')
 
     
     
-};
+// };
 
 
 
@@ -94,55 +212,55 @@ for ( let i = 0; i < images.length; i++){
 
 
 
-let counter = 0 ;
+// let counter = 0 ;
 
-let slider = document.querySelectorAll('.slider')
+// let slider = document.querySelectorAll('.slider')
  
 
 
 
 
-// ASSOCIO UNA VARIABILE AI BUTTON
-const buttonRight = document.getElementById('button-right');
-const buttonLeft = document.getElementById('button-left');
+// // ASSOCIO UNA VARIABILE AI BUTTON
+// const buttonRight = document.getElementById('button-right');
+// const buttonLeft = document.getElementById('button-left');
 
 
-buttonRight.addEventListener('click', function(){
+// buttonRight.addEventListener('click', function(){
 
      
-    if (counter < images.length -1){
+//     if (counter < images.length -1){
 
-        counter += 1;
+//         counter += 1;
 
-            // associo il counter esimo alla classe slider
-            slider[counter].classList.add('active')
+//             // associo il counter esimo alla classe slider
+//             slider[counter].classList.add('active')
 
-            slider[counter].classList.remove('slider')
+//             slider[counter].classList.remove('slider')
             
             
-            console.log(counter);
+//             console.log(counter);
             
         
 
-    }
+//     }
             
-            // document.querySelector('.hidden').classList.add('active')
+//             // document.querySelector('.hidden').classList.add('active')
     
-            // document.querySelector('.active').classList.remove('active')
+//             // document.querySelector('.active').classList.remove('active')
     
 
 
-});
+// });
 
 
-buttonLeft.addEventListener('click', function(){
-    if ((counter !== images.length) && (counter !== 0)){
-        counter -= 1
+// buttonLeft.addEventListener('click', function(){
+//     if ((counter !== images.length) && (counter !== 0)){
+//         counter -= 1
 
-        console.log(counter)
+//         console.log(counter)
 
-        document.querySelector('.canvas').innerHTML = (images[counter])
+//         document.querySelector('.canvas').innerHTML = (images[counter])
 
 
-    } 
-});
+//     } 
+// });
